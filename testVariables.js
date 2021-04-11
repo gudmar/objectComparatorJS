@@ -162,3 +162,36 @@ let mapB = new Map([
 let dateA = new Date(1999, 1, 23, 12, 23, 12)
 let dateA_same = new Date(1999, 1, 23, 12, 23, 12)
 let dateB = new Date(2000)
+
+
+let functionA = function(a, b) {
+    let c = a + b;
+    return c*a
+}
+let functionA_same = function(a, b) {
+    let c = a + b;
+    return c*a
+}
+
+function functionB(a, b) {
+    let c = a - b;
+    return c / b
+}
+
+function functionB_same(a, b){
+    let c = a - b;
+    return c / b
+}
+
+let functionD = (a) => {return a * 8}
+let functionD_same = (a) => {return a * 8}
+
+function functionC(a) {
+    let s = Symbol();
+    let o = {}
+    if (a > 54) {return undefined}
+    o[s] = a * 89;
+    return o
+}
+
+let  functionC_same = functionC

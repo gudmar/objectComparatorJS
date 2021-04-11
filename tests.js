@@ -353,22 +353,51 @@ let testCase32 = {
     message: `Two different dates are unequal`  
 }
 
-let testCase33 = {
+let testCase33a = {
     objA: (a)=>{a += 5; return a},
     objB: (a)=>{a += 5; return a},
     testedMehod: 'areEqualNotEnumerable',
     expectedResult: true,
     message: `Two equal functions are equal`  
 }
-let testCase34 = {
+let testCase33b = {
     objA: (a)=>{a += 6; return a},
     objB: (a)=>{a += 5; return a},
     testedMehod: 'areEqualNotEnumerable',
     expectedResult: false,
     message: `Two different functions are unequal`  
 }
+let testCase33c = {
+    objA: functionA,
+    objB: functionA_same,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: true,
+    message: `Two functions defined under variables are equal`  
+}
+let testCase33d = {
+    objA: functionB,
+    objB: functionB_same,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: false,
+    message: `Two functions with different names are unequal`  
+}
+let testCase33e = {
+    objA: functionD,
+    objB: functionD_same,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: false,
+    message: `Two arrow functions defined unser variables are equal`  
+}
+let testCase33f = {
+    objA: functionC,
+    objB: functionC_same,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: true,
+    message: `Same functions containing Symbol definitions are equal`      
+}
 
-let testCase35 = {
+
+let testCase34 = {
     objA: undefined,
     objB: undefined,
     testedMehod: 'areEqualNotEnumerable',
@@ -376,7 +405,7 @@ let testCase35 = {
     message: `undefined == undefined` 
 }
 
-let testCase36 = {
+let testCase35 = {
     objA: null,
     objB: null,
     testedMehod: 'areEqualNotEnumerable',
@@ -385,7 +414,7 @@ let testCase36 = {
     
 }
 
-console.error('No support for NULL, map, function, date, set')
+console.error('No support for NULL, map, date, set')
 
 let allTestCases = [testCase1, testCase2, testCase3, testCase4, 
                     testCase5, testCase6, testCase7, testCase8, 
@@ -396,9 +425,10 @@ let allTestCases = [testCase1, testCase2, testCase3, testCase4,
                     testCase21, testCase22, testCase23, testCase24,
                     testCase25, testCase26, testCase27, testCase28,
                     testCase29, testCase30, testCase31, testCase32,
-                    testCase33, testCase34, testCase35, testCase36
+                    testCase33a, testCase33b, testCase33c, testCase33d, 
+                    testCase33f, testCase34, testCase35
                 ];
-// let allTestCases = [testCase20];
+// let allTestCases = [testCase33a, testCase33b, testCase33c, testCase33d, testCase33f];
 
 (function runTestAndPlaceResults() {
     let placer = new TestResultPlacer('result')

@@ -109,7 +109,6 @@ class ObjectCompare{
                     if (ObjectCompare.areObjectsEqual(a[key], b[key], keyEnumerateMethod)) {
                         nrOfEqualKeys++;
                     } else {
-                        console.log(`Unequal ${a[key]},   ${b[key]}`)
                         return false
                     }
                 }
@@ -132,8 +131,7 @@ class ObjectCompare{
 
 
     static areFunctionsEqual(a, b){
-        let strA = JSON.stringify(a);
-        let strB = JSON.stringify(b);
-        return strA == strB
+        // Do not use JSON.stringify, as it often returns undefined while converting functions
+        return a.toString() == b.toString()
     }
 }
