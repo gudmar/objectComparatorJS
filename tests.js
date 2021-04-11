@@ -414,6 +414,7 @@ let testCase35 = {
     
 }
 
+
 console.error('No support for NULL, map, date, set')
 
 let allTestCases = [testCase1, testCase2, testCase3, testCase4, 
@@ -426,7 +427,7 @@ let allTestCases = [testCase1, testCase2, testCase3, testCase4,
                     testCase25, testCase26, testCase27, testCase28,
                     testCase29, testCase30, testCase31, testCase32,
                     testCase33a, testCase33b, testCase33c, testCase33d, 
-                    testCase33f, testCase34, testCase35
+                    testCase33f
                 ];
 // let allTestCases = [testCase33a, testCase33b, testCase33c, testCase33d, testCase33f];
 
