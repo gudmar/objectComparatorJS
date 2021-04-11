@@ -1,0 +1,14 @@
+*{
+    font-family: Arial, Helvetica, sans-serif
+}
+td{
+    padding: 1rem;
+}
+.PASS{
+    background-color: green;
+    color: white
+}
+.FAIL{
+    background-color: red;
+    color: white
+}

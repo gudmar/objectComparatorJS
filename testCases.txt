@@ -1,0 +1,31 @@
+//   Compare same strings  / pass
+//   Compare different strings / fail
+//   Compare same bigInts / pass
+//   Compare different bigInts /fail
+//   compare primitives of different type / fail
+
+//   compare arrays of primitives with same values in different order - use haveArraysSameValues / pass
+//   compare arrays of primitives with same values in different order - use areArraysEqual / fail
+//   compare arrays of primitives with same values in the same order - use areArraysEqual / pass
+//   compare arrays with different primitive values - use haveArraysSameValues and areArraysEqual / fail
+//   compare arrays with different lenghts - use haveArraysSameValues and areArraysEqual / fail
+//   compare arrays with different values, but same lenght - use haveArraysSameValues / fail
+
+//   compare objects with same keys and primitive values. Only enumerable attributes. Use areNotEqualEnumerable and areEqualEnumerable - pass
+//   compare objects with different primitive values. Only enumerable attributes. Use areNotEqualEnumerable and areEqualEnumerable - false
+//   compare objects with different keys. Only enumerable attributes. Use areNotEqualEnumerable and areEqualEnumerable - false
+  
+//   + compare objects with same enumerable keys and primitive values. Difference in not enumerable attributes - areEqualEnumerable - true
+//   + compare objects with same enumerable keys and primitive values. Difference in not enumerable attributes - areEqualNotEnumerable - false
+//   + compare objects containing not enumerable attributes, that are equal. Use areEqualNotEnumerable - true
+//   + compare objects containing not enumerable attributes, that not enumerable attrubutes have different values. Use areEqualNotEnumerable - false
+//   + compare objects containing not enumerable attributes, that not enumerable attributes have different keys. Use areEqualNotEnumerable - false
+
+//   + compare arrays with nested objects that have the same objects in different order. Use areEqualEnumerable and areNotEqualEnumerable and haveArraysSameValues - pass
+//   + compare arrays with nested objects that have the same objects in different order. Use areArraysEqual - false
+
+//   + compare arrays with nesetd objects in the same order. Use areArraysEqual - true
+
+//   - compare arrays with objects having hidden attributes with areNotEqualEnumerable - true
+//     are symbol primitives equal
+//     are object copies with symbol key equal
