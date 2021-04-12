@@ -322,7 +322,7 @@ let testCase28 = {
     objB: setF,
     testedMehod: 'areEqualNotEnumerable',
     expectedResult: false,
-    message: `Two sets with different primitiva items are unequal`  
+    message: `Two sets with different primitive items are unequal`  
 }
 let testCase30a = {
     objA: mapA,
@@ -352,6 +352,21 @@ let testCase30d = {
     expectedResult: false,
     message: `Two map objects with the same keys and values and order but different key types are equal`
 }
+let testCase30e = {
+    objA: nestedMapA,
+    objB: nestedMapA_differentHidden,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: false,
+    message: `Two nested Map objects with a hidden value different are unequal`
+}
+let testCase30f = {
+    objA: nestedMapA,
+    objB: nestedMapA_same,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: false,
+    message: `Two equal nested Map objects are equal`
+}
+
 let testCase31 = {
     objA: dateA,
     objB: dateA_same,
@@ -428,8 +443,37 @@ let testCase35 = {
     
 }
 
+let testCase36 = {
+    objA: Number.NaN,
+    objB: Number.NaN,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: true,
+    message: `NaN == NaN (NaN | NaN)` 
+}
 
-console.error('No support for NULL, N/A, set')
+let testCase37 = {
+    objA: true * false,
+    objB: true * false,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: true,
+    message: `NaN == NaN (5/string | bool * bool)` 
+}
+
+let testCase38 = {
+    objA: Infinity,
+    objB: Infinity,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: true,
+    message: `Infinity == Infinity` 
+}
+let testCase39 = {
+    objA: Infinity,
+    objB: 10/0,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: true,
+    message: `Infinity == 10/0` 
+}
+
 
 let allTestCases = [testCase1, testCase2, testCase3, testCase4, 
                     testCase5, testCase6, testCase7, testCase8, 
@@ -439,12 +483,12 @@ let allTestCases = [testCase1, testCase2, testCase3, testCase4,
                     testCase17, testCase18, testCase19, testCase20,
                     testCase21, testCase22, testCase23, testCase24,
                     testCase25, testCase26, testCase27, testCase28,
-                    testCase30a, testCase30b, testCase30c, testCase30d,
+                    testCase30a, testCase30b, testCase30c, testCase30d, testCase30e, testCase30f,
                     testCase31, testCase32,
                     testCase33a, testCase33b, testCase33c, testCase33d, 
-                    testCase33f
+                    testCase33f, testCase34 , testCase35, testCase36, testCase37, testCase38, testCase39
                 ];
-// let allTestCases = [testCase33a, testCase33b, testCase33c, testCase33d, testCase33f];
+// let allTestCases = [testCase25];
 
 (function runTestAndPlaceResults() {
     let placer = new TestResultPlacer('result')

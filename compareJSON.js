@@ -9,6 +9,29 @@ class ObjectCompare{
         return false
     }
 
+    static areNull(arr) {
+        return ObjectCompare._areOfSpecificType_iterable(arr, (element) => {return element === null ? true : false})
+    }
+
+
+    static areSpecialNumberValues(arr) {
+        let isSpecialNumber = function(a){
+            if (typeof(a) != 'number') {
+                return false
+            } else {
+                return a === Number.POSITIVE_INFINITY || isNaN(a) || a === Number.NEGATIVE_INFINITY ? true : false
+            }
+        }
+        return ObjectCompare._areOfSpecificType_iterable(arr, isSpecialNumber)
+    }
+
+    static _areOfSpecificType_iterable(arr, isElementOfSpecificType){
+        let nrOfSpecificTypeVals = 0;
+        arr.forEach(element => {
+           if(isElementOfSpecificType(element)) nrOfSpecificTypeVals++;
+        });
+        return nrOfSpecificTypeVals == arr.length ? true : false
+    }
 
     static arePrimitivesEqual(a, b){
         if (ObjectCompare.isPrimitive(a) && ObjectCompare.isPrimitive(b)) {
@@ -16,28 +39,27 @@ class ObjectCompare{
         }
     }
 
-
-    static _areArrays(arrayOfArgs){
+    static areArrays(arrayOfArgs){
         return ObjectCompare._areOfSpecificType(arrayOfArgs, 'Array')
     }
 
 
-    static _areFunctions(arrayOfArgs){
+    static areFunctions(arrayOfArgs){
         return ObjectCompare._areOfSpecificType(arrayOfArgs, 'Function')
     }
 
 
-    static _areMaps(arrayOfArgs) {
+    static areMaps(arrayOfArgs) {
         return ObjectCompare._areOfSpecificType(arrayOfArgs, 'Map')
     }
 
 
-    static _areSets(arrayOfArgs) {
+    static areSets(arrayOfArgs) {
         return ObjectCompare._areOfSpecificType(arrayOfArgs, 'Set')
     }
 
 
-    static _areDates(arrayOfArgs) {
+    static areDates(arrayOfArgs) {
         return ObjectCompare._areOfSpecificType(arrayOfArgs, 'Date')
     }
 
@@ -72,9 +94,24 @@ class ObjectCompare{
         return true;
     }
 
+    static compareSpecialNumberValues(a, b) {
+        try {
+            if (!ObjectCompare.areSpecialNumberValues([a, b])) {
+                throw new TypeError(`${ObjectCompare.constructor.name}: compareSpacialNumberValues: at least one passed item is not infinity/-infinity or NaN`)
+            } else {
+                if (isNaN(a) && isNaN(b)) {
+                    return true
+                } else {
+                    return a === b
+                }
+            }
+        } catch (e) {
+
+        }
+    }
 
     static compareArrays(a, b, arrayElementsComparationMethod){
-        if (!ObjectCompare._areArrays([a, b])) {
+        if (!ObjectCompare.areArrays([a, b])) {
             throw new TypeError(`${ObjectCompare.constructor.name}: areArraysEqual: arguments should be arrays`)
         } else if (!ObjectCompare._areAllOfEqualType([a, b])) {
             return false;
@@ -120,17 +157,19 @@ class ObjectCompare{
         return ObjectCompare.compareArrays(a, b, comparationMethod)
     }
 
-    static _areObjectsEqual(a, b, keyEnumerateMethod, propValueGetter = (obj, key) => {return obj[key]}){
+    static _areObjectsEqual(a, b, keyEnumerateMethod, propValueGetter = (obj, key) => {return obj[key]}, childrenKeyEnumarateMethod){
         let keysA = keyEnumerateMethod(a);
         let keysB = keyEnumerateMethod(b);  
+        childrenKeyEnumarateMethod = childrenKeyEnumarateMethod == undefined ? keyEnumerateMethod : childrenKeyEnumarateMethod;
         let nrOfEqualKeys = 0;      
-        if (!this.haveArraysSameValues(keysA, keysB, ObjectCompare.arePrimitivesEqual)) {
+        // if (!ObjectCompare.haveArraysSameValues(keysA, keysB, ObjectCompare.arePrimitivesEqual)) {
+        if (!ObjectCompare.areEqualNotEnumerable(keysA, keysB)) {
             return false;
         } else {
             let lenA = keysA.length;
             let lenB = keysB.length;
             for (let key of keysA) {
-                if (ObjectCompare._areEqual(propValueGetter(a, key), propValueGetter(b, key), keyEnumerateMethod)) {
+                if (ObjectCompare._areEqual(propValueGetter(a, key), propValueGetter(b, key), childrenKeyEnumarateMethod)) {
                     nrOfEqualKeys++;
                 } else {
                     return false
@@ -146,19 +185,28 @@ class ObjectCompare{
         if (!ObjectCompare._areAllOfEqualType([a, b])) {
             return false;
         } 
+        else if (ObjectCompare.areNull([a, b])) {
+            return true;
+        }
+        else if (ObjectCompare.areSpecialNumberValues([a, b])) {
+            return ObjectCompare.compareSpecialNumberValues(a, b);
+        }
         else if (ObjectCompare.isPrimitive(a) && ObjectCompare.isPrimitive(b)) { 
             return ObjectCompare.arePrimitivesEqual(a, b)
         } 
-        else if (ObjectCompare._areFunctions([a, b])) {
+        else if (ObjectCompare.areFunctions([a, b])) {
             return ObjectCompare.areFunctionsEqual(a, b)
         } 
-        else if (ObjectCompare._areDates([a, b])) {
+        else if (ObjectCompare.areDates([a, b])) {
             return ObjectCompare.areDatesEqual(a, b)
         } 
-        else if (ObjectCompare._areMaps([a, b])) {
+        else if (ObjectCompare.areMaps([a, b])) {
             return ObjectCompare.areMapsEqual(a, b)
-        } 
-        else if (ObjectCompare._areArrays([a, b])){
+        }        
+        else if (ObjectCompare.areSets([a, b])) {
+            return ObjectCompare.areSetsEqual(a, b)
+        }  
+        else if (ObjectCompare.areArrays([a, b])){
             return arrayCompareMethod(a, b, keyEnumerateMethod)
         } 
         else {
@@ -205,7 +253,22 @@ class ObjectCompare{
         let getPropValue = function(obj, key){
             return obj.get(key)
         }
-        return ObjectCompare._areObjectsEqual(a, b, enumerate, getPropValue)
+        return ObjectCompare._areObjectsEqual(a, b, enumerate, getPropValue, Reflect.ownKeys)
+    }
+
+    static areSetsEqual(a, b) {
+        let enumerate = function(a) {
+            let arr = [];
+            let keys = a.keys();
+            for (let key of keys) {
+                arr.push(key)
+            }
+            return arr
+        }
+        let getPropValue = function(obj, key){
+            return obj.has(key)
+        }
+        return ObjectCompare._areObjectsEqual(a, b, enumerate, getPropValue, Reflect.ownKeys)
     }
 
 

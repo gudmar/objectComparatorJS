@@ -75,6 +75,8 @@ let objectDeeplyNestedHiddenA = {
     keyB: [objectNoHiddenA, objectNoHiddenNestedB, [objectNoHiddenA]],
     keyC: {o: getCopyWithSomeHiddenProp(objectNoHiddenA)}    
 }
+
+
 let objectDeeplyNestedDifferentHiddenA = {
     keyA: objectNoHiddenA,
     keyB: [objectNoHiddenA, objectNoHiddenNestedB, [objectNoHiddenA]],
@@ -83,26 +85,26 @@ let objectDeeplyNestedDifferentHiddenA = {
 
 
 
-let arrayNestedNotHiddenA = [getDeepCopyOfObject(objectNoHiddenNestedA), 
-                             getDeepCopyOfObject(objectNoHiddenNestedB), 
-                             getDeepCopyOfObject(objectNoHiddenA), 
-                             getDeepCopyOfObject(objectNoHiddenB)
-                            ]
-let arrayNestedNotHiddenReorderedA = [getDeepCopyOfObject(objectNoHiddenNestedB), 
-                                      getDeepCopyOfObject(objectNoHiddenB),
-                                      getDeepCopyOfObject(objectNoHiddenNestedA), 
-                                      getDeepCopyOfObject(objectNoHiddenA)
-                                    ]
-let arrayNestedHiddenA = [objectDeeplyNestedHiddenA, 
-                          objectNoHiddenNestedB, 
-                          objectNoHiddenA, 
-                          objectNoHiddenB
-                         ]
-let arrayNestedDifferentHiddenValueA = [objectDeeplyNestedDifferentHiddenA, 
-                            objectNoHiddenNestedB, 
-                            objectNoHiddenA, 
-                            objectNoHiddenB
-                           ]
+let arrayNestedNotHiddenA = [getDeepCopyOfObject(objectNoHiddenNestedA),
+    getDeepCopyOfObject(objectNoHiddenNestedB),
+    getDeepCopyOfObject(objectNoHiddenA),
+    getDeepCopyOfObject(objectNoHiddenB)
+]
+let arrayNestedNotHiddenReorderedA = [getDeepCopyOfObject(objectNoHiddenNestedB),
+    getDeepCopyOfObject(objectNoHiddenB),
+    getDeepCopyOfObject(objectNoHiddenNestedA),
+    getDeepCopyOfObject(objectNoHiddenA)
+]
+let arrayNestedHiddenA = [objectDeeplyNestedHiddenA,
+    objectNoHiddenNestedB,
+    objectNoHiddenA,
+    objectNoHiddenB
+]
+let arrayNestedDifferentHiddenValueA = [objectDeeplyNestedDifferentHiddenA,
+    objectNoHiddenNestedB,
+    objectNoHiddenA,
+    objectNoHiddenB
+]
 
 let setA = new Set()
 setA.add(objectDeeplyNestedHiddenA)
@@ -111,23 +113,23 @@ setA.add(4)
 
 let setA_same = new Set()
 setA_same.add(objectDeeplyNestedHiddenA)
-setA.add(3)
-setA.add(4)
+setA_same.add(3)
+setA_same.add(4)
 
 let setB = new Set()
-setA_same.add(objectDeeplyNestedDifferentHiddenA)
-setA.add(3)
-setA.add(4)
+setB.add(objectDeeplyNestedDifferentHiddenA)
+setB.add(3)
+setB.add(4)
 
 let setC = new Set()
-setA.add(objectNoHiddenNestedA)
-setA.add(3)
-setA.add(4)
+setC.add(objectNoHiddenNestedA)
+setC.add(3)
+setC.add(4)
 
 let setD = new Set()
-setA.add(objectNoHiddenNestedB)
-setA.add(3)
-setA.add(4)
+setD.add(objectNoHiddenNestedB)
+setD.add(3)
+setD.add(4)
 
 let setE = new Set()
 setE.add(1)
@@ -140,6 +142,7 @@ setE.add(5)
 setE.add(2)
 setE.add(3)
 setE.add(4)
+
 
 let mapA = new Map([
     [1, 'val1'],
@@ -176,6 +179,19 @@ mapC_reordered.set(1, 'val2');
 mapC_reordered.set(false, 'val4');
 mapC_reordered.set(true, 'val3');
 mapC_reordered.set(()=>{}, 'val5')
+
+let nestedMapA = new Map();
+nestedMapA.set(1, mapC);
+nestedMapA.set(arrayNestedHiddenA, objectDeeplyNestedDifferentHiddenA)
+
+let nestedMapA_same =  new Map();
+nestedMapA_same.set(1, mapC);
+nestedMapA_same.set(arrayNestedHiddenA, objectDeeplyNestedDifferentHiddenA)
+
+let nestedMapA_differentHidden = new Map();
+nestedMapA.set(1, mapC);
+nestedMapA.set(arrayNestedHiddenA, objectDeeplyNestedA)
+
 
 
 let dateA = new Date(1999, 1, 23, 12, 23, 12)
