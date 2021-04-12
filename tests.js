@@ -322,22 +322,51 @@ let testCase28 = {
     objB: setF,
     testedMehod: 'areEqualNotEnumerable',
     expectedResult: false,
-    message: `Two sets with different primitiva items are unequal`  
+    message: `Two sets with different primitive items are unequal`  
 }
-let testCase29 = {
+let testCase30a = {
     objA: mapA,
     objB: mapA_same,
     testedMehod: 'areEqualNotEnumerable',
     expectedResult: true,
     message: `Two maps with same items are equal - items are primitives`  
 }
-let testCase30 = {
+let testCase30b = {
     objA: mapA,
     objB: mapB,
     testedMehod: 'areEqualNotEnumerable',
     expectedResult: false,
     message: `Two map objects with different items are unequal`  
 }
+let testCase30c = {
+    objA: mapC,
+    objB: mapC_reordered,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: false,
+    message: `Two map objects with different items order are unequal`
+}
+let testCase30d = {
+    objA: mapC,
+    objB: mapC_same,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: false,
+    message: `Two map objects with the same keys and values and order but different key types are equal`
+}
+let testCase30e = {
+    objA: nestedMapA,
+    objB: nestedMapA_differentHidden,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: false,
+    message: `Two nested Map objects with a hidden value different are unequal`
+}
+let testCase30f = {
+    objA: nestedMapA,
+    objB: nestedMapA_same,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: false,
+    message: `Two equal nested Map objects are equal`
+}
+
 let testCase31 = {
     objA: dateA,
     objB: dateA_same,
@@ -353,22 +382,51 @@ let testCase32 = {
     message: `Two different dates are unequal`  
 }
 
-let testCase33 = {
+let testCase33a = {
     objA: (a)=>{a += 5; return a},
     objB: (a)=>{a += 5; return a},
     testedMehod: 'areEqualNotEnumerable',
     expectedResult: true,
     message: `Two equal functions are equal`  
 }
-let testCase34 = {
+let testCase33b = {
     objA: (a)=>{a += 6; return a},
     objB: (a)=>{a += 5; return a},
     testedMehod: 'areEqualNotEnumerable',
     expectedResult: false,
     message: `Two different functions are unequal`  
 }
+let testCase33c = {
+    objA: functionA,
+    objB: functionA_same,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: true,
+    message: `Two functions defined under variables are equal`  
+}
+let testCase33d = {
+    objA: functionB,
+    objB: functionB_same,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: false,
+    message: `Two functions with different names are unequal`  
+}
+let testCase33e = {
+    objA: functionD,
+    objB: functionD_same,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: false,
+    message: `Two arrow functions defined unser variables are equal`  
+}
+let testCase33f = {
+    objA: functionC,
+    objB: functionC_same,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: true,
+    message: `Same functions containing Symbol definitions are equal`      
+}
 
-let testCase35 = {
+
+let testCase34 = {
     objA: undefined,
     objB: undefined,
     testedMehod: 'areEqualNotEnumerable',
@@ -376,7 +434,7 @@ let testCase35 = {
     message: `undefined == undefined` 
 }
 
-let testCase36 = {
+let testCase35 = {
     objA: null,
     objB: null,
     testedMehod: 'areEqualNotEnumerable',
@@ -385,7 +443,37 @@ let testCase36 = {
     
 }
 
-console.error('No support for NULL, map, function, date, set')
+let testCase36 = {
+    objA: Number.NaN,
+    objB: Number.NaN,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: true,
+    message: `NaN == NaN (NaN | NaN)` 
+}
+
+let testCase37 = {
+    objA: true * false,
+    objB: true * false,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: true,
+    message: `NaN == NaN (5/string | bool * bool)` 
+}
+
+let testCase38 = {
+    objA: Infinity,
+    objB: Infinity,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: true,
+    message: `Infinity == Infinity` 
+}
+let testCase39 = {
+    objA: Infinity,
+    objB: 10/0,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: true,
+    message: `Infinity == 10/0` 
+}
+
 
 let allTestCases = [testCase1, testCase2, testCase3, testCase4, 
                     testCase5, testCase6, testCase7, testCase8, 
@@ -395,10 +483,12 @@ let allTestCases = [testCase1, testCase2, testCase3, testCase4,
                     testCase17, testCase18, testCase19, testCase20,
                     testCase21, testCase22, testCase23, testCase24,
                     testCase25, testCase26, testCase27, testCase28,
-                    testCase29, testCase30, testCase31, testCase32,
-                    testCase33, testCase34, testCase35, testCase36
+                    testCase30a, testCase30b, testCase30c, testCase30d, testCase30e, testCase30f,
+                    testCase31, testCase32,
+                    testCase33a, testCase33b, testCase33c, testCase33d, 
+                    testCase33f, testCase34 , testCase35, testCase36, testCase37, testCase38, testCase39
                 ];
-// let allTestCases = [testCase20];
+
 
 (function runTestAndPlaceResults() {
     let placer = new TestResultPlacer('result')
