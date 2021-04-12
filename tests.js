@@ -488,7 +488,7 @@ let allTestCases = [testCase1, testCase2, testCase3, testCase4,
                     testCase33a, testCase33b, testCase33c, testCase33d, 
                     testCase33f, testCase34 , testCase35, testCase36, testCase37, testCase38, testCase39
                 ];
-// let allTestCases = [testCase25];
+
 
 (function runTestAndPlaceResults() {
     let placer = new TestResultPlacer('result')
