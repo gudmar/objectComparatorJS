@@ -324,19 +324,33 @@ let testCase28 = {
     expectedResult: false,
     message: `Two sets with different primitiva items are unequal`  
 }
-let testCase29 = {
+let testCase30a = {
     objA: mapA,
     objB: mapA_same,
     testedMehod: 'areEqualNotEnumerable',
     expectedResult: true,
     message: `Two maps with same items are equal - items are primitives`  
 }
-let testCase30 = {
+let testCase30b = {
     objA: mapA,
     objB: mapB,
     testedMehod: 'areEqualNotEnumerable',
     expectedResult: false,
     message: `Two map objects with different items are unequal`  
+}
+let testCase30c = {
+    objA: mapC,
+    objB: mapC_reordered,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: false,
+    message: `Two map objects with different items order are unequal`
+}
+let testCase30d = {
+    objA: mapC,
+    objB: mapC_same,
+    testedMehod: 'areEqualNotEnumerable',
+    expectedResult: false,
+    message: `Two map objects with the same keys and values and order but different key types are equal`
 }
 let testCase31 = {
     objA: dateA,
@@ -415,7 +429,7 @@ let testCase35 = {
 }
 
 
-console.error('No support for NULL, map, date, set')
+console.error('No support for NULL, N/A, set')
 
 let allTestCases = [testCase1, testCase2, testCase3, testCase4, 
                     testCase5, testCase6, testCase7, testCase8, 
@@ -425,7 +439,8 @@ let allTestCases = [testCase1, testCase2, testCase3, testCase4,
                     testCase17, testCase18, testCase19, testCase20,
                     testCase21, testCase22, testCase23, testCase24,
                     testCase25, testCase26, testCase27, testCase28,
-                    testCase29, testCase30, testCase31, testCase32,
+                    testCase30a, testCase30b, testCase30c, testCase30d,
+                    testCase31, testCase32,
                     testCase33a, testCase33b, testCase33c, testCase33d, 
                     testCase33f
                 ];

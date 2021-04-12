@@ -120,7 +120,7 @@ class ObjectCompare{
         return ObjectCompare.compareArrays(a, b, comparationMethod)
     }
 
-    static _areObjectsEqual(a, b, keyEnumerateMethod){
+    static _areObjectsEqual(a, b, keyEnumerateMethod, propValueGetter = (obj, key) => {return obj[key]}){
         let keysA = keyEnumerateMethod(a);
         let keysB = keyEnumerateMethod(b);  
         let nrOfEqualKeys = 0;      
@@ -130,7 +130,7 @@ class ObjectCompare{
             let lenA = keysA.length;
             let lenB = keysB.length;
             for (let key of keysA) {
-                if (ObjectCompare._areEqual(a[key], b[key], keyEnumerateMethod)) {
+                if (ObjectCompare._areEqual(propValueGetter(a, key), propValueGetter(b, key), keyEnumerateMethod)) {
                     nrOfEqualKeys++;
                 } else {
                     return false
@@ -194,11 +194,18 @@ class ObjectCompare{
 
 
     static areMapsEqual(a, b) {
-        console.log(a)
-        console.log(ObjectCompare._areArrays([a, b]))
-        console.log(b)
-        console.dir(a)
-        return a == b
+        let enumerate = function(a) {
+            let arr = [];
+            let keys = a.keys();
+            for (let key of keys) {
+                arr.push(key)
+            }
+            return arr
+        }
+        let getPropValue = function(obj, key){
+            return obj.get(key)
+        }
+        return ObjectCompare._areObjectsEqual(a, b, enumerate, getPropValue)
     }
 
 

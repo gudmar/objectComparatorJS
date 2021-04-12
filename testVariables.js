@@ -158,6 +158,25 @@ let mapB = new Map([
     [2, 'val2'],
     [3, 'val3']
 ])
+let mapC = new Map();
+mapC.set(1, 'val2');
+mapC.set(true, 'val3');
+mapC.set(false, 'val4');
+mapC.set(()=>{}, 'val5')
+
+let mapC_same = new Map();
+mapC_same.set(1, 'val2');
+mapC_same.set(true, 'val3');
+mapC_same.set(false, 'val4');
+mapC_same.set(()=>{}, 'val5')
+
+
+let mapC_reordered = new Map();
+mapC_reordered.set(1, 'val2');
+mapC_reordered.set(false, 'val4');
+mapC_reordered.set(true, 'val3');
+mapC_reordered.set(()=>{}, 'val5')
+
 
 let dateA = new Date(1999, 1, 23, 12, 23, 12)
 let dateA_same = new Date(1999, 1, 23, 12, 23, 12)
